@@ -2,7 +2,7 @@ server:
   port: 0
 spring:
   application:
-    name: user
+    name: user-service
 eureka:
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id:${random.value}}
