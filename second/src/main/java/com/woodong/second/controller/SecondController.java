@@ -15,7 +15,7 @@ public class SecondController {
     }
 
     @GetMapping("/message")
-    public String message(@RequestHeader("second-request") String header){
+    public String message(@RequestHeader(value = "second-request", required = false) String header){
         System.out.println(header);
         return "Hello World in Second Service";
     }

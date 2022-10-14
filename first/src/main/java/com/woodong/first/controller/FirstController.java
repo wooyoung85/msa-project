@@ -15,7 +15,7 @@ public class FirstController {
     }
 
     @GetMapping("/message")
-    public String message(@RequestHeader("first-request") String header){
+    public String message(@RequestHeader(value = "first-request", required = false) String header){
         System.out.println(header);
         return "Hello World in First Service";
     }
