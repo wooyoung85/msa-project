@@ -25,6 +25,7 @@ public class UserController {
 
         UserDto userDto = mapper.map(userRequest, UserDto.class);
         userService.createUser(userDto);
+
         return "Create user method is called";
     }
 
