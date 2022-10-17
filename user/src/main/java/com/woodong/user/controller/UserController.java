@@ -9,9 +9,11 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
     private final UserService userService;
 
@@ -30,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping("/health_check")
-    public String status() {
-        return "It's working in User Service";
+    public String status(HttpServletRequest request) {
+        return String.format("It's working in User Service on Port %s", request.getServerPort());
     }
 
     @GetMapping("/welcome")
