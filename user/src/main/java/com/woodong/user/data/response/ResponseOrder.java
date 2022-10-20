@@ -1,4 +1,4 @@
-package com.woodong.user.response;
+package com.woodong.user.data.response;
 
 import lombok.Data;
 

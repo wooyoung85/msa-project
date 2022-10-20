@@ -1,6 +1,6 @@
-package com.woodong.user.dto;
+package com.woodong.user.data.dto;
 
-import com.woodong.user.response.ResponseOrder;
+import com.woodong.user.data.response.ResponseOrder;
 import lombok.Data;
 
 import java.time.LocalDateTime;

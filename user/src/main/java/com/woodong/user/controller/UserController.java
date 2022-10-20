@@ -1,9 +1,9 @@
 package com.woodong.user.controller;
 
-import com.woodong.user.dto.UserDto;
+import com.woodong.user.data.dto.UserDto;
 import com.woodong.user.entity.UserEntity;
-import com.woodong.user.request.UserRequest;
-import com.woodong.user.response.ResponseUser;
+import com.woodong.user.data.request.RequestUser;
+import com.woodong.user.data.response.ResponseUser;
 import com.woodong.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,7 +19,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user-service")
 public class UserController {
     private final UserService userService;
 
@@ -42,11 +41,11 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<ResponseUser> createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser requestUser) {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        UserDto userDto = mapper.map(userRequest, UserDto.class);
+        UserDto userDto = mapper.map(requestUser, UserDto.class);
         userService.createUser(userDto);
 
         ResponseUser responseUser = mapper.map(userDto, ResponseUser.class);
