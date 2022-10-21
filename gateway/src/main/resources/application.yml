@@ -38,6 +38,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /${segment}
+            - AuthorizationHeaderFilter
         - id: order-service
           uri: lb://order-service
           predicates:
@@ -69,3 +70,8 @@ spring:
             baseMessage: Spring Cloud Gateway GlobalFilter
             preLogger: true
             postLogger: true
+
+token:
+  expiration_time: 864000000
+  secret: 123!@#123!@#123!@#123!@#woodongwoodongwoodongwoodong123!@#123!@#123!@#123!@#
+
