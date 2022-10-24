@@ -34,8 +34,7 @@ public class WebSecurity {
     public DefaultSecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-//                .antMatchers("/**").hasIpAddress("10.11.130.173")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**").hasIpAddress("10.11.132.26")
                 .and().addFilter(getAuthenticationFilter());
         http.headers().frameOptions().disable();
 
