@@ -29,6 +29,6 @@ eureka:
 greeting:
   message: Welcome to the Simple E-Commerce.
 
-token:
-  expiration_time: 864000000
-  secret: 123!@#123!@#123!@#123!@#woodongwoodongwoodongwoodong123!@#123!@#123!@#123!@#
+#token:
+#  expiration_time: 864000000
+#  secret: 123!@#123!@#123!@#123!@#woodongwoodongwoodongwoodong123!@#123!@#123!@#123!@#

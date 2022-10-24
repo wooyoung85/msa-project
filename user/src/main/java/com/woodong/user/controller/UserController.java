@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    private final Environment environment;
 
     @Value("${greeting.message}")
     private String message;
@@ -54,7 +57,10 @@ public class UserController {
 
     @GetMapping("/health_check")
     public String status(HttpServletRequest request) {
-        return String.format("It's working in User Service on Port %s", request.getServerPort());
+        return String.format("It's working in User Service, \n Port(local.server.port) %s, \n Port(server.port) %s" +
+                        ", \n with token secret %s, \n with token time %s",
+                environment.getProperty("local.server.port"), environment.getProperty("server.port")
+                , environment.getProperty("token.secret"), environment.getProperty("token.expiration_time"));
     }
 
     @GetMapping("/welcome")
