@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: config-service
+  profiles:
+    active: native
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -11,6 +13,8 @@ spring:
   cloud:
     config:
       server:
+        native:
+          search-locations: file:///D:/native-config
         git:
           uri: file://D:/msa-config
 management:

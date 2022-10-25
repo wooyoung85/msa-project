@@ -2,13 +2,13 @@ package com.woodong.gateway.filter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -27,11 +27,11 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     public static class Config {
     }
 
-    @Value("${token.secret}")
-    private String SECRET;
+    private Environment environment;
 
-    public AuthorizationHeaderFilter() {
+    public AuthorizationHeaderFilter(Environment environment) {
         super(Config.class);
+        this.environment = environment;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         String subject = null;
 
         try {
-            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(getSigningKey(SECRET)).build().parseClaimsJws(jwt);
+            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(getSigningKey(environment.getProperty("token.secret"))).build().parseClaimsJws(jwt);
             subject = claimsJws.getBody().getSubject();
         } catch (Exception ex) {
             returnValue = false;
