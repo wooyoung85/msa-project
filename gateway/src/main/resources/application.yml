@@ -11,9 +11,22 @@ eureka:
 spring:
   application:
     name: gateway
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     gateway:
       routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /${segment}
         - id: user-service
           uri: lb://user-service
           predicates:
@@ -75,3 +88,8 @@ token:
   expiration_time: 864000000
   secret: 123!@#123!@#123!@#123!@#woodongwoodongwoodongwoodong123!@#123!@#123!@#123!@#
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,beans,httptrace,busrefresh

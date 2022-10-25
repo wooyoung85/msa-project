@@ -33,6 +33,7 @@ public class WebSecurity {
     @Bean
     public DefaultSecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests()
                 .antMatchers("/**").hasIpAddress("10.11.132.26")
                 .and().addFilter(getAuthenticationFilter());
