@@ -8,8 +8,8 @@ spring:
     port: 5672
     username: guest
     password: guest
-  datasource:
-    url: jdbc:h2:mem:test-db
+#  datasource:
+#    url: jdbc:h2:mem:test-db
   jpa:
     show-sql: true
     generate-ddl: true
