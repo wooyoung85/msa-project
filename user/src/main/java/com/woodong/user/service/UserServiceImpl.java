@@ -5,7 +5,9 @@ import com.woodong.user.data.dto.UserDto;
 import com.woodong.user.data.response.ResponseOrder;
 import com.woodong.user.entity.UserEntity;
 import com.woodong.user.repository.UserRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.security.core.userdetails.User;
@@ -20,6 +22,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final OrderServiceClient orderServiceClient;
@@ -44,7 +47,13 @@ public class UserServiceImpl implements UserService {
         }
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+        List<ResponseOrder> orderList = null;
+        try{
+            orderList = orderServiceClient.getOrders(userId);
+        }catch (FeignException ex){
+            log.error(ex.getMessage());
+        }
+
         userDto.setOrders(orderList);
 
         return userDto;

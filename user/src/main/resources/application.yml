@@ -34,6 +34,7 @@ eureka:
 greeting:
   message: Welcome to the Simple E-Commerce.
 
+
 management:
   endpoints:
     web:
@@ -41,4 +42,8 @@ management:
         include: refresh,health,beans,httptrace,busrefresh
 #token:
 #  expiration_time: 864000000
+logging:
+  level:
+    com.woodong.user.client: DEBUG
+
 #  secret: 123!@#123!@#123!@#123!@#woodongwoodongwoodongwoodong123!@#123!@#123!@#123!@#
