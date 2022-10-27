@@ -45,15 +45,9 @@ public class UserServiceImpl implements UserService {
         if (userEntity == null) {
             throw new UsernameNotFoundException("User not found");
         }
+
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
-
-        List<ResponseOrder> orderList = null;
-        try{
-            orderList = orderServiceClient.getOrders(userId);
-        }catch (FeignException ex){
-            log.error(ex.getMessage());
-        }
-
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
         userDto.setOrders(orderList);
 
         return userDto;
