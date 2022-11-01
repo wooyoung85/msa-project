@@ -4,6 +4,7 @@ import com.woodong.order.data.dto.OrderDto;
 import com.woodong.order.data.request.RequestOrder;
 import com.woodong.order.data.response.ResponseOrder;
 import com.woodong.order.entity.OrderEntity;
+import com.woodong.order.service.KafkaProducer;
 import com.woodong.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,7 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final KafkaProducer kafkaProducer;
 
     @GetMapping("/{userId}/orders")
     public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable("userId") String userId){
@@ -38,6 +40,9 @@ public class OrderController {
         orderDto.setUserId(userId);
         OrderDto createDto = orderService.createOrder(orderDto);
         ResponseOrder returnValue = modelMapper.map(createDto, ResponseOrder.class);
+
+        kafkaProducer.send("example-order-topic", orderDto);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
     }
 }
