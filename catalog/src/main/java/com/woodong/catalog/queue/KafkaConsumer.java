@@ -1,4 +1,4 @@
-package com.woodong.catalog.service;
+package com.woodong.catalog.queue;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

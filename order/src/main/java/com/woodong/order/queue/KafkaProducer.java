@@ -1,4 +1,4 @@
-package com.woodong.order.service;
+package com.woodong.order.queue;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
