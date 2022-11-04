@@ -8,6 +8,7 @@ import com.woodong.order.queue.OrderProducer;
 import com.woodong.order.queue.KafkaProducer;
 import com.woodong.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order-service")
+@Slf4j
 public class OrderController {
 
     private final OrderService orderService;
@@ -29,9 +31,11 @@ public class OrderController {
 
     @GetMapping("/{userId}/orders")
     public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable("userId") String userId) {
+        log.info("Before retrieve orders data");
         List<OrderEntity> orderList = orderService.getOrdersByUserId(userId);
         List<ResponseOrder> result = new ArrayList<>();
         orderList.forEach(order -> result.add(new ModelMapper().map(order, ResponseOrder.class)));
+        log.info("Add retrieved orders data");
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
