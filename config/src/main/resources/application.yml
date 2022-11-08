@@ -16,9 +16,8 @@ spring:
 #        native:
 #          search-locations: file:///D:/native-config
         git:
-          uri: https://github.com/joneconsulting/spring-cloud-config.git
-          basedir: ./repo
-          default-label: master
+          uri: https://github.com/wooyoung85/msa-config
+          basedir: /repo
 
 management:
   endpoints:
